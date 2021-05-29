@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_db/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,6 +9,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String _toolbarState = 'Movie';
+
+  Widget textSelectionBar(String textState) {
+    return InkWell(
+      child: Text(textState,
+          style: tsTitle2.copyWith(
+            color: _toolbarState == textState ? redColor : whiteColor,
+          )),
+      onTap: () {
+        setState(() {
+          _toolbarState = textState;
+        });
+      },
+    );
+  }
+
   Widget selectionBar() {
     return Container(
       padding: EdgeInsets.only(
@@ -16,9 +33,9 @@ class _HomePageState extends State<HomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('Tv Show'),
-          Text('Movie'),
-          Text('Favorite'),
+          textSelectionBar('Tv Show'),
+          textSelectionBar('Movie'),
+          textSelectionBar('Favorite'),
         ],
       ),
     );
