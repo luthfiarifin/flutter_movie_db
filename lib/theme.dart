@@ -8,6 +8,11 @@ Color whiteColor = Color(0xffffffff);
 Color grayColor = Color(0xff747479);
 
 // Note: Fonts
+TextStyle tsTitle1 = GoogleFonts.poppins(
+  color: whiteColor,
+  fontWeight: medium,
+  fontSize: 20
+);
 TextStyle tsTitle2 = GoogleFonts.poppins(
   color: whiteColor,
   fontWeight: light,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_db/pages/movie_page.dart';
 import 'package:movie_db/theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,10 +27,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget selectionBar() {
-    return Container(
-      padding: EdgeInsets.only(
-        top: 24,
-      ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -45,10 +44,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        children: [
-          selectionBar(),
-        ],
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            selectionBar(),
+            MoviePage(),
+          ],
+        ),
       )),
     );
   }
