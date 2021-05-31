@@ -15,13 +15,13 @@ class MoviePage extends StatefulWidget {
 
 class _MoviePageState extends State<MoviePage> {
   int _current = 0;
-  Future<List<MovieModel>>? getUpComingFuture;
+  Future<List<MovieModel>>? _getUpComingFuture;
 
   @override
   void initState() {
     super.initState();
 
-    getUpComingFuture = MovieData.getUpComing(context);
+    _getUpComingFuture = MovieData.getUpComing(context);
   }
 
   @override
@@ -101,14 +101,14 @@ class _MoviePageState extends State<MoviePage> {
         Container(
           height: 250,
           child: FutureBuilder(
-            future: getUpComingFuture,
+            future: _getUpComingFuture,
             builder: (context, AsyncSnapshot snapshot) {
-              List<MovieModel> movies = snapshot.data;
-
               if (snapshot.connectionState == ConnectionState.waiting ||
                   !snapshot.hasData)
-                return CircularProgressIndicator();
-              else
+                return Center(child: CircularProgressIndicator());
+              else {
+                List<MovieModel> movies = snapshot.data;
+
                 return Column(children: [
                   CarouselSlider(
                     items: imageSliders(movies),
@@ -140,6 +140,7 @@ class _MoviePageState extends State<MoviePage> {
                     }).toList(),
                   ),
                 ]);
+              }
             },
           ),
         ),
