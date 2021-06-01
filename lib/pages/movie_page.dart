@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_db/data/movie_data.dart';
 import 'package:movie_db/models/movie_model.dart';
 import 'package:movie_db/theme.dart';
+import 'package:movie_db/widgets/movie_list.dart';
 
 import '../util.dart';
 
@@ -108,10 +109,32 @@ class _MoviePageState extends State<MoviePage> {
       ]);
     }
 
+    Widget movieList(String title) {
+      return FutureBuilder(
+        future: MovieData.getHomeMovie(context),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              !snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
+          else {
+            List<MovieModel> movies = snapshot.data;
+
+            return MovieList(title: title, movies: movies);
+          }
+        },
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         comingSoon(),
+        movieList('Popular Movie'),
+        movieList('Continue Watching'),
+        movieList('Hot Movie'),
+        SizedBox(
+          height: 16,
+        ),
       ],
     );
   }

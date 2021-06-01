@@ -22,4 +22,23 @@ class MovieData {
       return [];
     }
   }
+
+  static Future<List<MovieModel>> getHomeMovie(BuildContext context) async {
+    try {
+      String data = await DefaultAssetBundle.of(context)
+          .loadString("assets/json/movie_popular.json");
+
+      List<MovieModel> movies = [];
+      List parsedJson = json.decode(data);
+
+      parsedJson.forEach((model) {
+        movies.add(MovieModel.fromJson(model));
+      });
+
+      return (movies..shuffle()).toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
 }
