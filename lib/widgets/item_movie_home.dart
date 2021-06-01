@@ -40,7 +40,7 @@ class ItemMovieHome extends StatelessWidget {
             style: tsTitle3,
           ),
           Text(
-            movie.releaseDate,
+            Util.formatDate(movie.releaseDate),
             style: tsSubtitle,
           ),
         ],
