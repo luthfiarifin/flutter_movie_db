@@ -18,6 +18,16 @@ TextStyle tsTitle2 = GoogleFonts.poppins(
   fontWeight: light,
   fontSize: 16
 );
+TextStyle tsTitle3 = GoogleFonts.poppins(
+  color: whiteColor,
+  fontWeight: light,
+  fontSize: 14
+);
+TextStyle tsSubtitle = GoogleFonts.poppins(
+  color: grayColor,
+  fontWeight: light,
+  fontSize: 12
+);
 
 // Note: Font Weights
 FontWeight light = FontWeight.w300;
