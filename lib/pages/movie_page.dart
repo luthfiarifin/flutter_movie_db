@@ -14,16 +14,6 @@ class MoviePage extends StatefulWidget {
 }
 
 class _MoviePageState extends State<MoviePage> {
-  int _current = 0;
-  Future<List<MovieModel>>? _getUpComingFuture;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _getUpComingFuture = MovieData.getUpComing(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Widget> imageSliders(List<MovieModel> movies) {
@@ -40,38 +30,33 @@ class _MoviePageState extends State<MoviePage> {
                         '${Util.W500_IMAGE}${movie.backdropPath}',
                         fit: BoxFit.cover,
                       ),
-                      Positioned(
-                        left: 0.0,
-                        right: 0.0,
-                        bottom: 0.0,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 24,
-                            left: 16,
-                          ),
-                          child: Text(
-                            movie.title,
-                            style: tsTitle2.copyWith(
-                              fontWeight: semiBold,
-                              shadows: [
-                                Shadow(
-                                    // bottomLeft
-                                    offset: Offset(-0.8, -0.8),
-                                    color: primaryColor),
-                                Shadow(
-                                    // bottomRight
-                                    offset: Offset(0.8, -0.8),
-                                    color: primaryColor),
-                                Shadow(
-                                    // topRight
-                                    offset: Offset(0.8, 0.8),
-                                    color: primaryColor),
-                                Shadow(
-                                    // topLeft
-                                    offset: Offset(-0.8, 0.8),
-                                    color: primaryColor),
-                              ],
-                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 12,
+                          left: 16,
+                        ),
+                        child: Text(
+                          movie.title,
+                          style: tsTitle3.copyWith(
+                            fontWeight: semiBold,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(-0.8, -0.8),
+                                color: primaryColor,
+                              ),
+                              Shadow(
+                                offset: Offset(0.8, -0.8),
+                                color: primaryColor,
+                              ),
+                              Shadow(
+                                offset: Offset(0.8, 0.8),
+                                color: primaryColor,
+                              ),
+                              Shadow(
+                                offset: Offset(-0.8, 0.8),
+                                color: primaryColor,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -99,9 +84,8 @@ class _MoviePageState extends State<MoviePage> {
           ),
         ),
         Container(
-          height: 250,
           child: FutureBuilder(
-            future: _getUpComingFuture,
+            future: MovieData.getUpComing(context),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting ||
                   !snapshot.hasData)
@@ -109,37 +93,14 @@ class _MoviePageState extends State<MoviePage> {
               else {
                 List<MovieModel> movies = snapshot.data;
 
-                return Column(children: [
-                  CarouselSlider(
-                    items: imageSliders(movies),
-                    options: CarouselOptions(
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 4),
-                        aspectRatio: 2.1,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
-                        }),
+                return CarouselSlider(
+                  items: imageSliders(movies),
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 4),
+                    aspectRatio: 2.1,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: movies.map((movie) {
-                      int index = movies.indexOf(movie);
-
-                      return Container(
-                        width: 8.0,
-                        height: 8.0,
-                        margin: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 2.0),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: _current == index ? whiteColor : grayColor,
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ]);
+                );
               }
             },
           ),
