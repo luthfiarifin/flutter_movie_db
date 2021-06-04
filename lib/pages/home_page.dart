@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:movie_db/data/movie_data.dart';
+import 'package:movie_db/models/movie_model.dart';
 import 'package:movie_db/pages/movie_page.dart';
 import 'package:movie_db/theme.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../util.dart';
 
@@ -78,34 +80,113 @@ class _HomePageState extends State<HomePage> {
                 !snapshot.hasData)
               return Center(child: CircularProgressIndicator());
             else {
-              var movie = snapshot.data;
+              MovieModel movie = snapshot.data;
 
-              return Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image:
-                        NetworkImage('${Util.W500_IMAGE}${movie.posterPath}'),
-                    fit: BoxFit.fitWidth
-                  ),
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 0.3, sigmaY: 0.3),
-                  child: Container(
+              return Stack(
+                children: [
+                  Container(
                     decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                          primaryColor.withOpacity(0.1),
-                          primaryColor.withOpacity(0.4),
-                          primaryColor.withOpacity(0.5),
-                          primaryColor.withOpacity(0.7),
-                        ])),
+                      image: DecorationImage(
+                          image: NetworkImage(
+                              '${Util.W500_IMAGE}${movie.posterPath}'),
+                          fit: BoxFit.fitWidth),
+                    ),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 0.3, sigmaY: 0.3),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                              primaryColor.withOpacity(0.1),
+                              primaryColor.withOpacity(0.4),
+                              primaryColor.withOpacity(0.5),
+                              primaryColor.withOpacity(0.7),
+                            ])),
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 24),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _informationButton(),
+                            SizedBox(
+                              width: 24,
+                            ),
+                            _shareButton(movie.id)
+                          ],
+                        ),
+                      ))
+                ],
               );
             }
           }),
+    );
+  }
+
+  Widget _shareButton(int id) {
+    return InkWell(
+      onTap: () {
+        Share.share("${Util.WEB_MOVIE_URL}$id", subject: 'Share this movie!');
+      },
+      child: Container(
+        child: Column(
+          children: [
+            Icon(
+              Icons.share,
+              color: whiteColor,
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              'Share',
+              style: tsTitle3.copyWith(fontWeight: FontWeight.w800),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _informationButton() {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 6,
+        ),
+        decoration: BoxDecoration(
+          color: whiteColor.withOpacity(0.9),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.info_outline,
+              color: primaryColor,
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            Text(
+              'Information',
+              style: tsTitle3.copyWith(
+                color: primaryColor,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
