@@ -36,4 +36,24 @@ class MovieData {
       return [];
     }
   }
+
+  static Future<List<MovieModel>> getSimilar(BuildContext context, int id) async {
+    try {
+      String data = await DefaultAssetBundle.of(context)
+          .loadString("assets/json/movie_popular.json");
+
+      List<MovieModel> movies = [];
+      List parsedJson = json.decode(data);
+
+      parsedJson.forEach((model) {
+        MovieModel movie = MovieModel.fromJson(model);
+        if (movie.id != id) movies.add(movie);
+      });
+
+      return (movies..shuffle()).take(5).toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
 }

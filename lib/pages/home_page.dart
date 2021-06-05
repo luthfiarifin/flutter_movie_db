@@ -8,6 +8,7 @@ import 'package:movie_db/theme.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../util.dart';
+import 'detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -116,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _informationButton(),
+                            _informationButton(movie),
                             SizedBox(
                               width: 24,
                             ),
@@ -156,9 +157,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _informationButton() {
+  Widget _informationButton(MovieModel movie) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPage(
+              movie: movie,
+            ),
+          ),
+        );
+      },
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: 14,
