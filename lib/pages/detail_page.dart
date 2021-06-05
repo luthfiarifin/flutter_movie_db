@@ -20,7 +20,7 @@ class DetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _header(),
+            _header(context),
             _body(),
             _similar(context),
           ],
@@ -29,33 +29,49 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  Widget _header() {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage('${Util.W500_IMAGE}${movie.posterPath}'),
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-          ),
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 0.3, sigmaY: 0.3),
+  Widget _header(BuildContext context) {
+    return Stack(
+      children: [
+        AspectRatio(
+          aspectRatio: 1,
           child: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                  primaryColor.withOpacity(0.1),
-                  primaryColor.withOpacity(0.4),
-                  primaryColor.withOpacity(0.5),
-                  primaryColor.withOpacity(0.7),
-                ])),
+              image: DecorationImage(
+                image: NetworkImage('${Util.W500_IMAGE}${movie.posterPath}'),
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
+              ),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 0.3, sigmaY: 0.3),
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                      primaryColor.withOpacity(0.1),
+                      primaryColor.withOpacity(0.4),
+                      primaryColor.withOpacity(0.5),
+                      primaryColor.withOpacity(0.7),
+                    ])),
+              ),
+            ),
           ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(top: 24),
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: whiteColor,
+            ),
+          ),
+        )
+      ],
     );
   }
 
