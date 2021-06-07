@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../util.dart';
 import 'detail_page.dart';
+import 'favorite_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             _header(),
-            MoviePage(),
+            _body(),
           ],
         ),
       ),
@@ -35,12 +36,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _header() {
-    return Stack(
+    return _toolbarState == "Favorite" ? _selectionBar() : Stack(
       children: [
         _currentMovie(),
         _selectionBar(),
       ],
     );
+  }
+
+  Widget _body() {
+    return _toolbarState == "Favorite" ? FavoritePage() : MoviePage();
   }
 
   Widget _selectionBar() {
