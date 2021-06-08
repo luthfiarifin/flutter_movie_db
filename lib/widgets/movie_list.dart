@@ -13,6 +13,8 @@ class MovieList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _scrollController = ScrollController();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,15 +30,20 @@ class MovieList extends StatelessWidget {
         SizedBox(
           height: 8,
         ),
-        Container(
-          height: 250,
-          child: ListView.builder(
-            padding: EdgeInsets.only(left: 16),
-            scrollDirection: Axis.horizontal,
-            itemCount: movies.length,
-            itemBuilder: (context, index) {
-              return ItemMovieHome(movie: movies[index]);
-            },
+        Scrollbar(
+          isAlwaysShown: true,
+          controller: _scrollController,
+          child: Container(
+            height: 250,
+            child: ListView.builder(
+              controller: _scrollController,
+              padding: EdgeInsets.only(left: 16),
+              scrollDirection: Axis.horizontal,
+              itemCount: movies.length,
+              itemBuilder: (context, index) {
+                return ItemMovieHome(movie: movies[index]);
+              },
+            ),
           ),
         )
       ],
