@@ -7,13 +7,13 @@ import 'package:movie_db/models/movie_model.dart';
 import 'package:movie_db/widgets/movie_list.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../theme.dart';
-import '../util.dart';
+import '../../theme.dart';
+import '../../util.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailMobilePage extends StatelessWidget {
   final MovieModel movie;
 
-  const DetailPage({required this.movie, Key? key}) : super(key: key);
+  const DetailMobilePage({required this.movie, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class DetailPage extends StatelessWidget {
   Widget _header(BuildContext context) {
     return Stack(
       children: [
-        AspectRatio(
-          aspectRatio: 1,
+        Container(
+          height: MediaQuery.of(context).size.height / 2,
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -51,11 +51,11 @@ class DetailPage extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                      primaryColor.withOpacity(0.1),
-                      primaryColor.withOpacity(0.4),
-                      primaryColor.withOpacity(0.5),
-                      primaryColor.withOpacity(0.7),
-                    ])),
+                          primaryColor.withOpacity(0.1),
+                          primaryColor.withOpacity(0.4),
+                          primaryColor.withOpacity(0.5),
+                          primaryColor.withOpacity(0.7),
+                        ])),
               ),
             ),
           ),
@@ -140,9 +140,9 @@ class DetailPage extends StatelessWidget {
                   itemSize: 16,
                   itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                   itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
                   onRatingUpdate: (_) {}),
             ],
           ),

@@ -8,7 +8,7 @@ import 'package:movie_db/theme.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../util.dart';
-import 'detail_page.dart';
+import 'detail/detail_page.dart';
 import 'favorite_page.dart';
 
 class HomePage extends StatefulWidget {

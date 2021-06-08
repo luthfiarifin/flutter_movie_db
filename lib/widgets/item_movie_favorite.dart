@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_db/models/movie_model.dart';
-import 'package:movie_db/pages/detail_page.dart';
+import 'package:movie_db/pages/detail/detail_page.dart';
 import 'package:movie_db/theme.dart';
 
 import '../util.dart';
