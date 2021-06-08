@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_db/data/movie_data.dart';
 import 'package:movie_db/models/movie_model.dart';
 import 'package:movie_db/widgets/movie_list.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../theme.dart';
 import '../util.dart';
@@ -59,18 +60,35 @@ class DetailPage extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 24),
-          child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: whiteColor,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 24, left: 16),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: whiteColor,
+                ),
+              ),
             ),
-          ),
-        )
+            Padding(
+              padding: const EdgeInsets.only(top: 24, right: 16),
+              child: IconButton(
+                onPressed: () {
+                  Share.share("${Util.WEB_MOVIE_URL}${movie.id}", subject: 'Share this movie!');
+                },
+                icon: Icon(
+                  Icons.share,
+                  color: whiteColor,
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
