@@ -4,7 +4,9 @@ import 'package:movie_db/models/movie_model.dart';
 import 'package:movie_db/widgets/movie_list.dart';
 
 class MoviePage extends StatefulWidget {
-  const MoviePage({Key? key}) : super(key: key);
+  final String state;
+
+  const MoviePage({required this.state, Key? key}) : super(key: key);
 
   @override
   _MoviePageState createState() => _MoviePageState();
@@ -16,9 +18,9 @@ class _MoviePageState extends State<MoviePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _movieList('Popular Movie'),
+        _movieList('Popular ${widget.state}'),
         _movieList('Continue Watching'),
-        _movieList('Hot Movie'),
+        _movieList('Hot ${widget.state}'),
         SizedBox(
           height: 16,
         ),

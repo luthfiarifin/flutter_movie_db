@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _body() {
-    return _toolbarState == "Favorite" ? FavoritePage() : MoviePage();
+    return _toolbarState == "Favorite" ? FavoritePage() : MoviePage(state: _toolbarState,);
   }
 
   Widget _selectionBar() {
