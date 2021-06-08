@@ -31,7 +31,7 @@ class MovieList extends StatelessWidget {
           height: 8,
         ),
         Scrollbar(
-          isAlwaysShown: true,
+          isAlwaysShown: false,
           controller: _scrollController,
           child: Container(
             height: 250,
