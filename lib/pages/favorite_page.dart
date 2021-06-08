@@ -23,23 +23,37 @@ class FavoritePage extends StatelessWidget {
   }
 
   Widget _favoriteList(List<MovieModel> movies) {
-    return GridView.count(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      crossAxisCount: 2,
-      padding: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 32,
-      ),
-      crossAxisSpacing: 8,
-      mainAxisSpacing: 16,
-      children: movies
-          .map((movie) =>
-          ItemMovieFavorite(
-            movie: movie,
-          ))
-          .toList(),
-    );
+    return LayoutBuilder(builder: (context, BoxConstraints constrains) {
+      return GridView.count(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        crossAxisCount: getAxisCount(constrains.maxWidth),
+        padding: EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 32,
+        ),
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 16,
+        children: movies
+            .map((movie) => ItemMovieFavorite(
+                  movie: movie,
+                ))
+            .toList(),
+      );
+    });
+  }
+
+  getAxisCount(double maxWidth) {
+    return maxWidth >= 1000
+        ? 7
+        : maxWidth >= 1000
+            ? 6
+            : maxWidth >= 800
+                ? 5
+                : maxWidth >= 600
+                    ? 4
+                    : maxWidth >= 500
+                        ? 3
+                        : 2;
   }
 }
-
