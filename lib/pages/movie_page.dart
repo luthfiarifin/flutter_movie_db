@@ -21,6 +21,10 @@ class _MoviePageState extends State<MoviePage> {
         _movieList('Popular ${widget.state}'),
         _movieList('Continue Watching'),
         _movieList('Hot ${widget.state}'),
+        _movieList('New Release'),
+        _movieList('Top Rated ${widget.state}'),
+        _movieList('Upcoming ${widget.state}'),
+        _movieList('Now Playing ${widget.state}'),
         SizedBox(
           height: 16,
         ),
