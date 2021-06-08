@@ -42,9 +42,14 @@ class DetailWebPage extends StatelessWidget {
   }
 
   Widget _header(BuildContext context) {
-    return Text(
-      'Movie App',
-      style: tsTitle1.copyWith(fontSize: 32),
+    return Container(
+      width: 220,
+      padding: const EdgeInsets.only(
+        left: 16,
+        top: 24,
+        bottom: 8,
+      ),
+      child: Image.asset('images/tmdb_logo.png'),
     );
   }
 

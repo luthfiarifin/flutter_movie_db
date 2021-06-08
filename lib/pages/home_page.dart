@@ -54,12 +54,14 @@ class _HomePageState extends State<HomePage> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16, top: 24),
-                        child: Text(
-                          'Movie App',
-                          style: tsTitle1.copyWith(fontSize: 32),
+                      Container(
+                        width: 220,
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          top: 24,
+                          bottom: 8,
                         ),
+                        child: Image.asset('images/tmdb_logo.png'),
                       ),
                       _selectionBar(constrains.maxWidth),
                     ],
