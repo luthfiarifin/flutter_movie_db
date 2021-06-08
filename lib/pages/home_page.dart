@@ -47,16 +47,28 @@ class _HomePageState extends State<HomePage> {
   Widget _header() {
     return LayoutBuilder(
       builder: (context, BoxConstraints constrains) {
-        return _toolbarState == "Favorite" ||
-                constrains.maxWidth >= 500 ||
-                constrains.maxWidth <= 300
+        return _toolbarState == "Favorite" || constrains.maxWidth <= 300
             ? _selectionBar(constrains.maxWidth)
-            : Stack(
-                children: [
-                  _currentMovie(),
-                  _selectionBar(constrains.maxWidth),
-                ],
-              );
+            : constrains.maxWidth >= 500
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, top: 24),
+                        child: Text(
+                          'Movie App',
+                          style: tsTitle1.copyWith(fontSize: 32),
+                        ),
+                      ),
+                      _selectionBar(constrains.maxWidth),
+                    ],
+                  )
+                : Stack(
+                    children: [
+                      _currentMovie(),
+                      _selectionBar(constrains.maxWidth),
+                    ],
+                  );
       },
     );
   }
@@ -72,19 +84,19 @@ class _HomePageState extends State<HomePage> {
   Widget _selectionBar(double maxWidth) {
     return Padding(
       padding: EdgeInsets.only(
-        top: 48,
-        left: maxWidth >= 800 ? 16 : 0,
-        bottom: maxWidth >= 800 ? 16 : 0,
+        top: maxWidth >= 500 ? 8 : 48,
+        left: maxWidth >= 500 ? 16 : 0,
+        bottom: maxWidth >= 500 ? 24 : 0,
       ),
       child: Row(
-        mainAxisAlignment: maxWidth >= 800
+        mainAxisAlignment: maxWidth >= 500
             ? MainAxisAlignment.start
             : MainAxisAlignment.spaceEvenly,
         children: [
           _textSelectionBar('Tv Show'),
-          SizedBox(width: maxWidth >= 800 ? 16 : 0),
+          SizedBox(width: maxWidth >= 500 ? 16 : 0),
           _textSelectionBar('Movie'),
-          SizedBox(width: maxWidth >= 800 ? 16 : 0),
+          SizedBox(width: maxWidth >= 500 ? 16 : 0),
           _textSelectionBar('Favorite'),
         ],
       ),
