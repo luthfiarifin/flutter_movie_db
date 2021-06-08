@@ -21,6 +21,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _toolbarState = 'Movie';
 
+  Future<MovieModel?>? _currentMovieFuture;
+
+  @override
+  void initState() {
+    _currentMovieFuture = MovieData.getHeaderMovie(context);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,26 +45,46 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _header() {
-    return _toolbarState == "Favorite" ? _selectionBar() : Stack(
-      children: [
-        _currentMovie(),
-        _selectionBar(),
-      ],
+    return LayoutBuilder(
+      builder: (context, BoxConstraints constrains) {
+        return _toolbarState == "Favorite" ||
+                constrains.maxWidth >= 500 ||
+                constrains.maxWidth <= 300
+            ? _selectionBar(constrains.maxWidth)
+            : Stack(
+                children: [
+                  _currentMovie(),
+                  _selectionBar(constrains.maxWidth),
+                ],
+              );
+      },
     );
   }
 
   Widget _body() {
-    return _toolbarState == "Favorite" ? FavoritePage() : MoviePage(state: _toolbarState,);
+    return _toolbarState == "Favorite"
+        ? FavoritePage()
+        : MoviePage(
+            state: _toolbarState,
+          );
   }
 
-  Widget _selectionBar() {
+  Widget _selectionBar(double maxWidth) {
     return Padding(
-      padding: const EdgeInsets.only(top: 48),
+      padding: EdgeInsets.only(
+        top: 48,
+        left: maxWidth >= 800 ? 16 : 0,
+        bottom: maxWidth >= 800 ? 16 : 0,
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: maxWidth >= 800
+            ? MainAxisAlignment.start
+            : MainAxisAlignment.spaceEvenly,
         children: [
           _textSelectionBar('Tv Show'),
+          SizedBox(width: maxWidth >= 800 ? 16 : 0),
           _textSelectionBar('Movie'),
+          SizedBox(width: maxWidth >= 800 ? 16 : 0),
           _textSelectionBar('Favorite'),
         ],
       ),
@@ -69,9 +98,10 @@ class _HomePageState extends State<HomePage> {
             color: _toolbarState == textState ? redColor : whiteColor,
           )),
       onTap: () {
-        setState(() {
-          _toolbarState = textState;
-        });
+        if (_toolbarState != textState)
+          setState(() {
+            _toolbarState = textState;
+          });
       },
     );
   }
@@ -80,7 +110,7 @@ class _HomePageState extends State<HomePage> {
     return AspectRatio(
       aspectRatio: 0.690,
       child: FutureBuilder(
-          future: MovieData.getHeaderMovie(context),
+          future: _currentMovieFuture,
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting ||
                 !snapshot.hasData)
