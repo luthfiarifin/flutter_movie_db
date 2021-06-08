@@ -47,7 +47,8 @@ class _HomePageState extends State<HomePage> {
   Widget _header() {
     return LayoutBuilder(
       builder: (context, BoxConstraints constrains) {
-        return _toolbarState == "Favorite" || constrains.maxWidth <= 300
+        return (_toolbarState == "Favorite" && constrains.maxWidth < 500) ||
+                constrains.maxWidth <= 300
             ? _selectionBar(constrains.maxWidth)
             : constrains.maxWidth >= 500
                 ? Column(
