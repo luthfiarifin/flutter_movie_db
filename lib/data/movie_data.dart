@@ -7,7 +7,7 @@ class MovieData {
   static Future<MovieModel?> getHeaderMovie(BuildContext context) async {
     try {
       String data = await DefaultAssetBundle.of(context)
-          .loadString("json/movie_popular.json");
+          .loadString("assets/json/movie_popular.json");
 
       List parsedJson = json.decode(data);
 
@@ -21,7 +21,7 @@ class MovieData {
   static Future<List<MovieModel>> getHomeMovie(BuildContext context) async {
     try {
       String data = await DefaultAssetBundle.of(context)
-          .loadString("json/movie_popular.json");
+          .loadString("assets/json/movie_popular.json");
 
       List<MovieModel> movies = [];
       List parsedJson = json.decode(data);
@@ -40,7 +40,7 @@ class MovieData {
   static Future<List<MovieModel>> getSimilar(BuildContext context, int id) async {
     try {
       String data = await DefaultAssetBundle.of(context)
-          .loadString("json/movie_popular.json");
+          .loadString("assets/json/movie_popular.json");
 
       List<MovieModel> movies = [];
       List parsedJson = json.decode(data);

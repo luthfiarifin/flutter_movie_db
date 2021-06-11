@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                           top: 24,
                           bottom: 8,
                         ),
-                        child: Image.asset('images/tmdb_logo.png'),
+                        child: Image.asset('assets/images/tmdb_logo.png'),
                       ),
                       _selectionBar(constrains.maxWidth),
                     ],
