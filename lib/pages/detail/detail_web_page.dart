@@ -86,10 +86,15 @@ class DetailWebPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      movie.title,
-                      textAlign: TextAlign.center,
-                      style: tsTitle3.copyWith(fontSize: 30),
+                    Expanded(
+                      flex: 8,
+                      child: Text(
+                        movie.title,
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
+                        style: tsTitle3.copyWith(fontSize: 30),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     IconButton(
                       onPressed: () {
